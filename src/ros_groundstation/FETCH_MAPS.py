@@ -1,6 +1,6 @@
-import math, urllib, os, shutil, time, sys
+import math, urllib.request, urllib.parse, urllib.error, os, shutil, time, sys
 import xml.etree.cElementTree as ET
-from map_info_parser import get_key
+from .map_info_parser import get_key
 from PyQt5.QtGui import QImage, QPainter
 from PyQt5.QtCore import QPoint
 
@@ -82,7 +82,7 @@ urlbase = 'https://maps.googleapis.com/maps/api/staticmap?center=%f,%f&zoom=%d&m
 urlbase += _KEY
 
 # extract info for each map, for comparing and compiling
-print bcolors.BOLD + 'Parsing map_info.xml...' + bcolors.ENDC
+print(bcolors.BOLD + 'Parsing map_info.xml...' + bcolors.ENDC)
 map_dict = {}
 try:
     xmlroot = ET.parse(_INFO_FILE_PATH).getroot()
@@ -97,11 +97,11 @@ try:
             map_dict[name]['r_m'] = int(str(xmlnode.find('radius_m').text))
         map_dict[name]['fetch'] = False
 except:
-    print bcolors.BOLD + bcolors.FAIL + 'ERROR: Incorrectly formatted xml file!' + bcolors.ENDC
+    print(bcolors.BOLD + bcolors.FAIL + 'ERROR: Incorrectly formatted xml file!' + bcolors.ENDC)
 
 # check to see which maps need to be fetched or updated
 for mapname in map_dict:
-    print bcolors.OKGREEN + 'Processing maps for %s...' % mapname + bcolors.ENDC
+    print(bcolors.OKGREEN + 'Processing maps for %s...' % mapname + bcolors.ENDC)
     folder_path = os.path.join(_MAPS_CACHE_PATH, mapname)
     log_path = os.path.join(folder_path, '_log.txt')
     if os.path.exists(folder_path):
@@ -124,7 +124,7 @@ for mapname in map_dict:
     # fetch tiles from the internet, if needed
     if map_dict[mapname]['fetch']:
         clearContents(folder_path)
-        print 'Downloading maps for %s...' % mapname
+        print('Downloading maps for %s...' % mapname)
         latitude = round_to(map_dict[mapname]['lat'], _DEGREE_PRECISION)
         longitude = round_to(map_dict[mapname]['lon'], _DEGREE_PRECISION)
         radius_meters = map_dict[mapname]['r_m']
@@ -151,7 +151,9 @@ for mapname in map_dict:
                         specs = lat, lon, zoom, 'satellite', TILEWIDTH, TILEWIDTH
                         filename = os.path.join(zoom_folder_path, ('%d_%d' % (i, j)) + '.jpg')
                         url = urlbase % specs
-                        result = urllib.urlopen(url).read()
+
+                        req = urllib.request.Request('http://www.cmegroup.com/trading/products/#sortField=oi&sortAsc=false&venues=3&page=1&cleared=1&group=1', headers={'User-Agent': 'Mozilla/5.0'})
+                        result = urllib.request.urlopen(req).read()
                         tile = QImage()
                         tile.loadFromData(result)
                         tile.save(QString(filename))
@@ -175,4 +177,4 @@ for mapname in map_dict:
             logfile.write(str(map_dict[mapname]['lon']) + '\n')
             logfile.write(str(map_dict[mapname]['r_m']) + '\n')
     else:
-        print 'Downloaded maps for %s already up to date.' % mapname
+        print('Downloaded maps for %s already up to date.' % mapname)

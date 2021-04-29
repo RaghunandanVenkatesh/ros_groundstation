@@ -215,9 +215,9 @@ class OpWindow(QWidget):
         checked = state_integer
         topic_name = str(self.NEDwGPS_wppub_textedit.toPlainText())
         if checked:
-            print 'functionality pending'
+            print('functionality pending')
         else:
-            print 'functionality pending'
+            print('functionality pending')
 
     def handle_gpssub_checkbox(self, state_integer):
         checked = state_integer

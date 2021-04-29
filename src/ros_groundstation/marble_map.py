@@ -7,8 +7,8 @@ QString = type("")
 import os.path
 from math import sin, cos, radians
 
-import map_info_parser
-from Signals import WP_Handler
+from . import map_info_parser
+from .Signals import WP_Handler
 from .Geo import Geobase
 from .map_subscribers import *
 
@@ -101,7 +101,7 @@ class MarbleMap(QWidget):
 
     def mousePressEvent(self, QMouseEvent):
         if self._mouse_attentive:
-            print 'OUCH'
+            print('OUCH')
             #self.WPH.emit_clicked(clicked_lat, clicked_lon)
         else:
             self.movement_offset = QMouseEvent.pos()

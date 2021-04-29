@@ -5,7 +5,9 @@ from .Geo import Geobase
 from math import fmod, pi
 
 # custom messages
-from rosflight_msgs.msg import GPS, RCRaw
+from rosflight_msgs.msg import RCRaw
+from rosflight_msgs.msg import GNSS as GPS
+
 from rosplane_msgs.msg import Current_Path, Waypoint, State, Controller_Internals, Controller_Commands
 
 class InitSub(): # could end up being taken from rosplane_msgs.msg: State ++++
@@ -17,7 +19,7 @@ class InitSub(): # could end up being taken from rosplane_msgs.msg: State ++++
     gi_sub = None
     @staticmethod
     def updateInitLatLonAlt(new_init_latlonalt):
-        print 'taking latlonalt from marble'
+        print('taking latlonalt from marble')
         InitSub.reset()
         InitSub.with_init = False
         InitSub.init_latlonalt = new_init_latlonalt
@@ -35,7 +37,7 @@ class InitSub(): # could end up being taken from rosplane_msgs.msg: State ++++
 
     @staticmethod
     def updateGPSInitTopic(new_topic):
-        print 'subscribing to', new_topic
+        print('subscribing to', new_topic)
         InitSub.reset()
         InitSub.with_init = True
         InitSub.gps_init_topic = new_topic
@@ -73,7 +75,7 @@ class StateSub():
 
     @staticmethod
     def updateStateTopic(new_state_topic):
-        print 'subscribing to', new_state_topic
+        print('subscribing to', new_state_topic)
         StateSub.reset()
         StateSub.state_topic = new_state_topic
         if not StateSub.state_topic is None:
@@ -99,7 +101,7 @@ class StateSub():
 
     @staticmethod
     def closeSubscriber():
-        print 'closing subscriber'
+        print('closing subscriber')
         StateSub.reset()
 
     @staticmethod
@@ -125,7 +127,7 @@ class RCSub():
 
     @staticmethod
     def updateRCRawTopic(new_rc_raw_topic):
-        print 'subscribing to', new_rc_raw_topic
+        print('subscribing to', new_rc_raw_topic)
         RCSub.reset()
         RCSub.rc_raw_topic = new_rc_raw_topic
         if not RCSub.rc_raw_topic is None:
@@ -137,7 +139,7 @@ class RCSub():
 
     @staticmethod
     def updateRCChannel(new_rc_channel):
-        print 'updating RC channel to', new_rc_channel
+        print('updating RC channel to', new_rc_channel)
         RCSub.channel = new_rc_channel
 
     @staticmethod
@@ -146,7 +148,7 @@ class RCSub():
 
     @staticmethod
     def closeSubscriber():
-        print 'closing subscriber'
+        print('closing subscriber')
         RCSub.reset()
 
     @staticmethod
@@ -169,7 +171,7 @@ class PathSub():
 
     @staticmethod
     def updatePathTopic(new_path_topic):
-        print 'subscribing to', new_path_topic
+        print('subscribing to', new_path_topic)
         PathSub.reset()
         PathSub.path_topic = new_path_topic
         if not PathSub.path_topic is None:
@@ -193,7 +195,7 @@ class PathSub():
 
     @staticmethod
     def closeSubscriber():
-        print 'closing subscriber'
+        print('closing subscriber')
         PathSub.reset()
 
     @staticmethod
@@ -226,7 +228,7 @@ class WaypointSub():
 
     @staticmethod
     def updateWaypointTopic(new_waypoint_topic):
-        print 'subscribing to', new_waypoint_topic
+        print('subscribing to', new_waypoint_topic)
         WaypointSub.reset()
         WaypointSub.waypoint_topic = new_waypoint_topic
         if not WaypointSub.waypoint_topic is None:
@@ -252,7 +254,7 @@ class WaypointSub():
 
     @staticmethod
     def closeSubscriber():
-        print 'closing subscriber'
+        print('closing subscriber')
         WaypointSub.reset()
 
     @staticmethod
@@ -272,7 +274,7 @@ class ObstacleSub():
 
     @staticmethod
     def updateObstacleTopic(new_obstacle_topic):
-        print 'subscribing to', new_obstacle_topic
+        print('subscribing to', new_obstacle_topic)
         ObstacleSub.reset()
         ObstacleSub.obstacle_topic = new_obstacle_topic
         if not ObstacleSub.obstacle_topic is None:
@@ -310,7 +312,7 @@ class ObstacleSub():
 
     @staticmethod
     def closeSubscriber():
-        print 'closing subscriber'
+        print('closing subscriber')
         ObstacleSub.reset()
 
     @staticmethod
@@ -330,7 +332,7 @@ class GPSDataSub():
 
     @staticmethod
     def updateGPSDataTopic(new_gps_data_topic):
-        print 'subscribing to', new_gps_data_topic
+        print('subscribing to', new_gps_data_topic)
         GPSDataSub.reset()
         GPSDataSub.gps_data_topic = new_gps_data_topic
         if not GPSDataSub.gps_data_topic is None:
@@ -347,7 +349,7 @@ class GPSDataSub():
 
     @staticmethod
     def closeSubscriber():
-        print 'closing subscriber'
+        print('closing subscriber')
         GPSDataSub.reset()
 
     @staticmethod
@@ -367,7 +369,7 @@ class ConInSub():
 
     @staticmethod
     def updateConInTopic(new_controller_inners_topic):
-        print 'subscribing to', new_controller_inners_topic
+        print('subscribing to', new_controller_inners_topic)
         ConInSub.reset()
         ConInSub.controller_inners_topic = new_controller_inners_topic
         if not ConInSub.controller_inners_topic is None:
@@ -385,7 +387,7 @@ class ConInSub():
 
     @staticmethod
     def closeSubscriber():
-        print 'closing subscriber'
+        print('closing subscriber')
         ConInSub.reset()
 
     @staticmethod
@@ -407,7 +409,7 @@ class ConComSub():
 
     @staticmethod
     def updateConComTopic(new_controller_commands_topic):
-        print 'subscribing to', new_controller_commands_topic
+        print('subscribing to', new_controller_commands_topic)
         ConComSub.reset()
         ConComSub.controller_commands_topic = new_controller_commands_topic
         if not ConComSub.controller_commands_topic is None:
@@ -426,7 +428,7 @@ class ConComSub():
 
     @staticmethod
     def closeSubscriber():
-        print 'closing subscriber'
+        print('closing subscriber')
         ConComSub.reset()
 
     @staticmethod

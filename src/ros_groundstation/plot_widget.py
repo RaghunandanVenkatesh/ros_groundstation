@@ -155,7 +155,7 @@ class PlotWidget(QWidget):
         self._remove_topic_menu = QMenu()
 
         self._msgs.clear()
-        self._msgs.addItems(self.message_dict.keys())
+        self._msgs.addItems(list(self.message_dict.keys()))
 
         self._msgs.currentIndexChanged[str].connect(self._draw_graph) # <<<<<<< start here (also modify the dict)
 
@@ -225,9 +225,9 @@ class PlotWidget(QWidget):
     def update_plot(self):
         if self.data_plot is not None:
             needs_redraw = False
-            for topic_name, rosdata in self._rosdata.items():
+            for topic_name, rosdata in list(self._rosdata.items()):
                 try:
-                    data_x, data_y = rosdata.next()
+                    data_x, data_y = next(rosdata)
                     if data_x or data_y:
                         self.data_plot.update_values(topic_name, data_x, data_y)
                         needs_redraw = True
@@ -273,7 +273,7 @@ class PlotWidget(QWidget):
             qWarning(str(self._rosdata[topic_name].error))
             del self._rosdata[topic_name]
         else:
-            data_x, data_y = self._rosdata[topic_name].next()
+            data_x, data_y = next(self._rosdata[topic_name])
             self.data_plot.add_curve(topic_name, topic_name, data_x, data_y)
             #print self._rosdata.items() # ------------------------------------------
             topics_changed = True
@@ -290,12 +290,12 @@ class PlotWidget(QWidget):
         self._subscribed_topics_changed()
 
     def clear_plot(self):
-        for topic_name, _ in self._rosdata.items():
+        for topic_name, _ in list(self._rosdata.items()):
             self.data_plot.clear_values(topic_name)
         self.data_plot.redraw()
 
     def clean_up_subscribers(self):
-        for topic_name, rosdata in self._rosdata.items():
+        for topic_name, rosdata in list(self._rosdata.items()):
             rosdata.close()
             self.data_plot.remove_curve(topic_name)
         self._rosdata = {}

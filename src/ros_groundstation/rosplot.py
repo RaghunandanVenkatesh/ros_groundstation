@@ -130,7 +130,7 @@ class ROSData(object):
         self.buff_x.append(rospy.get_time() - self.start_time)
         self.buff_y.append(ConComSub.Va_c)
 
-    def next(self):
+    def __next__(self):
         """
         Get the next data in the series
         :returns: [xdata], [ydata]
@@ -180,5 +180,5 @@ def generate_field_evals(fields):
             else:
                 evals.append(_field_eval(f))
         return evals
-    except Exception, e:
+    except Exception as e:
         raise RosPlotException("cannot parse field reference [%s]: %s" % (fields, str(e)))

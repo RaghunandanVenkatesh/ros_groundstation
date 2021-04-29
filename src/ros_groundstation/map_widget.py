@@ -3,7 +3,7 @@ from python_qt_binding.QtWidgets import QWidget
 
 from .marble_map import MarbleMap
 from .op_window import OpWindow
-import map_info_parser
+from . import map_info_parser
 import os
 
 from PyQt5.QtGui import *

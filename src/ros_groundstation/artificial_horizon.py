@@ -131,7 +131,7 @@ class ArtificialHorizon(QtWidgets.QWidget):
         painter.drawPolygon(poly)
         painter.setPen(QPen(QBrush(QColor(255,255,0)), 2, Qt.SolidLine, Qt.RoundCap))
         rect = QRectF(p1,p4)
-        painter.drawText(rect,QtCore.Qt.AlignCenter,str(self.heading) + u'\N{DEGREE SIGN}')
+        painter.drawText(rect,QtCore.Qt.AlignCenter,str(self.heading) + '\N{DEGREE SIGN}')
 
     def drawAirspeedIndicator(self, event, painter):
         boxWidth = self.width*0.13
