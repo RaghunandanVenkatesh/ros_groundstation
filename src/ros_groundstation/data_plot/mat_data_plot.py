@@ -31,7 +31,7 @@ if qVersion().startswith('5.'):
     except ImportError:
         # work around bug in dateutil
         import sys
-        import thread
+        import _thread
         sys.modules['_thread'] = thread
         from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
     from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
@@ -44,7 +44,7 @@ elif qVersion().startswith('4.'):
     except ImportError:
         # work around bug in dateutil
         import sys
-        import thread
+        import _thread
         sys.modules['_thread'] = thread
         from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
     try:
@@ -118,7 +118,7 @@ class MatDataPlot(QWidget):
         handles, labels = self._canvas.axes.get_legend_handles_labels()
         if handles:
             hl = sorted(zip(handles, labels), key=operator.itemgetter(1))
-            handles, labels = zip(*hl)
+            handles, labels = list(zip(*hl))
         self._canvas.axes.legend(handles, labels, loc='upper left')
 
     def set_values(self, curve, data_x, data_y):

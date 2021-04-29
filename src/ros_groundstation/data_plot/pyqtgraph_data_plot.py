@@ -63,7 +63,7 @@ class PyQtGraphDataPlot(QWidget):
         # clear and rebuild legend (there is no remove item method for the legend...)
         self._plot_widget.clear()
         self._plot_widget.getPlotItem().legend.items = []
-        for curve in self._curves.values():
+        for curve in list(self._curves.values()):
             #print 'added curve'
             self._plot_widget.addItem(curve)
         if self._current_vline:
