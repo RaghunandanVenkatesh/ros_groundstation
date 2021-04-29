@@ -1,4 +1,4 @@
-from .gm_plotter import GoogleMapPlotter
+from .gm_plotter import GoogleMapPlotter 
 from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget
 from PyQt5.QtCore import *

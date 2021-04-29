@@ -6,7 +6,7 @@ from math import fmod, pi
 
 # custom messages
 from rosflight_msgs.msg import RCRaw
-from rosflight_msgs.msg import GNSS as GPS
+from rosflight_msgs.msg import GNSSFull
 
 from rosplane_msgs.msg import Current_Path, Waypoint, State, Controller_Internals, Controller_Commands
 
@@ -336,7 +336,7 @@ class GPSDataSub():
         GPSDataSub.reset()
         GPSDataSub.gps_data_topic = new_gps_data_topic
         if not GPSDataSub.gps_data_topic is None:
-            GPSDataSub.gps_sub = rospy.Subscriber(GPSDataSub.gps_data_topic, GPS, GPSDataSub.callback_GPS)
+            GPSDataSub.gps_sub = rospy.Subscriber(GPSDataSub.gps_data_topic, GNSSFull, GPSDataSub.callback_GPS)
 
     @staticmethod
     def getGPSDataTopic():
@@ -344,7 +344,7 @@ class GPSDataSub():
 
     @staticmethod
     def callback_GPS(gps_data):
-        GPSDataSub.numSat = gps_data.NumSat
+        GPSDataSub.numSat = gps_data.num_sat
         GPSDataSub.enabled = True
 
     @staticmethod

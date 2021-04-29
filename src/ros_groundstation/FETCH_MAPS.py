@@ -5,7 +5,7 @@ from PyQt5.QtGui import QImage, QPainter
 from PyQt5.QtCore import QPoint
 
 QString = type("")
-
+download_count = 0
 _default_radius_m = 1000            # * radius of map coverage, in meters
 zooms = [17,18,19,20]               # 0-22
 
@@ -133,6 +133,7 @@ for mapname in map_dict:
             zoom_folder_path = os.path.join(folder_path, str(zoom))
             os.makedirs(zoom_folder_path)
             startProgress('\tAt zoom level = %d' % zoom)
+            print('\n')
             # the following conversion formula comes from an employee at google:
             # https://groups.google.com/forum/#!topic/google-maps-js-api-v3/hDRO4oHVSeM
             pixels_per_meter = 2**zoom / (156543.03392 * math.cos(math.radians(latitude)))
@@ -152,6 +153,8 @@ for mapname in map_dict:
                         filename = os.path.join(zoom_folder_path, ('%d_%d' % (i, j)) + '.jpg')
                         url = urlbase % specs
                         print(url)
+                        download_count += 1
+                        print('Download_count = ', download_count)
                         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
                         result = urllib.request.urlopen(req).read()
                         tile = QImage()

@@ -159,10 +159,12 @@ class GoogleMapPlotter():
         painter.drawImage(destPos, small_image)
 
     def grab_tile(self, i, j):
+        
         filename = os.path.join(_MAPS_CACHE_PATH, self.mapname, str(self.zoom), '%d_%d.jpg' % (i, j))
         tile = None
-
+        print(filename)
         if os.path.isfile(filename):
+            
             tile = QImage(QString(filename))
 
         return tile
@@ -199,12 +201,10 @@ class GoogleMapPlotter():
         # find out which i, j values correspond to each corner
         min_i, max_j = self.localize_point(self.southwest, self.mz_obj.min_latlon, self.mz_obj.max_latlon)
         max_i, min_j = self.localize_point(self.northeast, self.mz_obj.min_latlon, self.mz_obj.max_latlon)
-
         # fetch and paste images onto a big canvas
         bigsize_x = (max_i - min_i + 1) * TILEWIDTH
         bigsize_y = (max_j - min_j + 1) * TILEHEIGHT
         bigimage = self.new_image(bigsize_x, bigsize_y)
-
         for i in range(min_i, max_i + 1):
             for j in range(min_j, max_j + 1):
                 tile = self.grab_tile(i, j)
@@ -216,5 +216,4 @@ class GoogleMapPlotter():
 
         self.x_offset = GoogleMapPlotter.rel_lon_to_rel_pix(upper_left_lon, self.west, self.zoom)
         self.y_offset = GoogleMapPlotter.rel_lat_to_rel_pix(upper_left_lat, self.north, self.zoom)
-
         return bigimage
