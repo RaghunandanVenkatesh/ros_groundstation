@@ -151,8 +151,8 @@ for mapname in map_dict:
                         specs = lat, lon, zoom, 'satellite', TILEWIDTH, TILEWIDTH
                         filename = os.path.join(zoom_folder_path, ('%d_%d' % (i, j)) + '.jpg')
                         url = urlbase % specs
-
-                        req = urllib.request.Request('http://www.cmegroup.com/trading/products/#sortField=oi&sortAsc=false&venues=3&page=1&cleared=1&group=1', headers={'User-Agent': 'Mozilla/5.0'})
+                        print(url)
+                        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
                         result = urllib.request.urlopen(req).read()
                         tile = QImage()
                         tile.loadFromData(result)
