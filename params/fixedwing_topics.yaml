@@ -18,7 +18,7 @@ rcRawSubTopic: /fixedwing/rc_raw
 rcRawChannel: 6
 
 gpsDataSubChecked: true
-gpsDataSubTopic: /fixedwing/gps
+gpsDataSubTopic: /fixedwing/gnss
 
 controllerInternalsSubChecked: true
 controllerInternalsSubTopic: /fixedwing/controller_inners
